@@ -2,12 +2,12 @@ entrypoints Prog;
 
 Program . Prog ::= [Def] Exp ;
 
-terminator Def "" ;
+terminator Def ";" ;
 
 DValue . Def ::= "let" Ident "=" Exp ;
-DFunc  . Def ::= "let" Ident [Ident] "=" [Def] Exp "end"; 
+DFunc  . Def ::= "let" Ident [Ident] "=" [Def] Exp;
 
-terminator nonempty Ident "" ;
+terminator nonempty Ident " " ;
 
 EIf  . Exp1 ::= "if" Exp2 "then" Exp2 "else" Exp2 "fi" ;
 
@@ -20,11 +20,11 @@ ENe . Exp3 ::= Exp4 "!=" Exp4 ;
 ELe . Exp3 ::= Exp4 "<" Exp4 ;
 EGe . Exp3 ::= Exp4 ">" Exp4 ;
 
-EPlus  . Exp4 ::= Exp5 "+" Exp5 ;
-EMinus . Exp4 ::= Exp5 "-" Exp5 ;
+EPlus  . Exp4 ::= Exp4 "+" Exp5 ;
+EMinus . Exp4 ::= Exp4 "-" Exp5 ;
 
-ETimes . Exp5 ::= Exp6 "*" Exp6 ;
-EDiv   . Exp5 ::= Exp6 "/" Exp6 ;
+ETimes . Exp5 ::= Exp5 "*" Exp6 ;
+EDiv   . Exp5 ::= Exp5 "/" Exp6 ;
 
 EApp . Exp6 ::= Ident [Exp7] ;
 
@@ -33,7 +33,7 @@ EInt        . Exp7 ::= Integer ;
 EBool_true  . Exp7 ::= "true" ;
 EBool_false . Exp7 ::= "false" ;
 
-terminator nonempty Exp7 "" ;
+separator nonempty Exp7 " " ;
 
 coercions Exp 7;
 

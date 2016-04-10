@@ -1,6 +1,6 @@
 all:
 	cd src && bnfc -m --haskell-gadt -d --ghc MIML.cf
-	sed --in-place '4d' src/Makefile
+	#sed --in-place '4d' src/Makefile
 	cd src && make
 
 clean:
