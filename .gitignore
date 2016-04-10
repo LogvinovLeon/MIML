@@ -14,3 +14,9 @@ cabal.sandbox.config
 *.aux
 *.hp
 .stack-work/
+*.eventlog
+.stack-work/
+.idea
+src/MIML/
+src/Makefile
+src/Makefile.bak
