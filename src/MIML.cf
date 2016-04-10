@@ -6,10 +6,42 @@ terminator Def ";" ;
 
 DValue . Def ::= "let" Ident "=" Exp ;
 DFunc  . Def ::= "let" Ident [Ident] "=" [Def] Exp;
+DType  . Def ::= "type" ValueConstructor [Type1] "=" [TypeDec] ;
 
-terminator nonempty Ident " " ;
+separator Type1 "" ;
+separator TypeDec "|" ;
+TypeDec . TypeDec ::= ValueConstructor [Type1] ;
 
-EIf  . Exp1 ::= "if" Exp2 "then" Exp2 "else" Exp2 "fi" ;
+terminator Type "" ;
+IntegerType  . Type1 ::= "Integer" ;
+BooleanType  . Type1 ::= "Boolean" ;
+DoubleType   . Type1 ::= "Double" ;
+ADType       . Type ::= ValueConstructor [Type1] ;
+coercions Type 1;
+
+terminator nonempty Ident "" ;
+
+EIf    . Exp1 ::= "if" Exp2 "then" Exp2 "else" Exp2 "fi" ;
+EMatch . Exp1 ::= "match" Exp2 "with" [MatchClause] "end" ;
+
+separator nonempty MatchClause "|" ;
+
+MatchClause . MatchClause ::= Pattern "->" Exp ;
+
+VarPattern         . Pattern2 ::= Ident ;
+IntPattern         . Pattern2 ::= Integer ;
+DoublePattern      . Pattern2 ::= Double ;
+NilPattern         . Pattern2 ::= "[]" ;
+WildCardPattern    . Pattern2 ::= "_" ;
+ConsPattern        . Pattern1 ::= Pattern1 ":" Pattern2 ;
+TypePattern        . Pattern ::= ValueConstructor [Pattern1] ;
+coercions Pattern 2 ;
+
+terminator Pattern1 "" ;
+
+token UIdent (upper (letter | digit | '_')*) ;
+
+ValueConstructor . ValueConstructor ::= UIdent ;
 
 EAnd . Exp2 ::= Exp3 "&&" Exp3 ;
 EOr  . Exp2 ::= Exp3 "||" Exp3 ;
@@ -28,12 +60,19 @@ EDiv   . Exp5 ::= Exp5 "/" Exp6 ;
 
 EApp . Exp6 ::= Ident [Exp7] ;
 
-EVar        . Exp7 ::= Ident ;
-EInt        . Exp7 ::= Integer ;
-EBool_true  . Exp7 ::= "true" ;
-EBool_false . Exp7 ::= "false" ;
+token Boolean ('t''r''u''e' | 'f''a''l''s''e') ;
 
-separator nonempty Exp7 " " ;
+EVar    . Exp7 ::= Ident ;
+EInt    . Exp7 ::= Integer ;
+EBool   . Exp7 ::= Boolean ;
+EDouble . Exp7 ::= Double ;
+EList   . Exp7 ::= "[" [ListElem] "]" ;
+
+ListElem . ListElem ::= Exp ;
+
+separator ListElem "," ;
+
+separator nonempty Exp7 "" ;
 
 coercions Exp 7;
 

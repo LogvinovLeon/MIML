@@ -1,0 +1,10 @@
+let fact n =
+    let fac n acc =
+        match n with
+          0 -> 1
+        | 1 -> 1
+        | n -> fac (n - 1)  (acc * n)
+        end;
+    fac n 1;
+
+map fact [1, 2, 3, 4, 5]
