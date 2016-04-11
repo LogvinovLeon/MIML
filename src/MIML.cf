@@ -5,31 +5,30 @@ Program . Prog ::= [Def] Exp ;
 terminator Def ";" ;
 
 DValue . Def ::= "let" Ident "=" Exp ;
-DFunc  . Def ::= "let" Ident [Ident] "=" [Def] Exp;
-DType  . Def ::= "type" ValueConstructor [TypeParameter] "=" [TypeDec] ;
+DFunc  . Def ::= "let" Ident [Parameter] "=" [Def] Exp;
+DType  . Def ::= "type" ValueC [Ident] "=" [TypeD] ;
 
-separator TypeDec "|" ;
-TypeDec . TypeDec ::= ValueConstructor [Type1] ;
-
-separator TypeParameter "" ;
-TypeParameter . TypeParameter ::= Ident ;
+terminator Ident "" ;
+separator TypeD "|" ;
+TypeDec . TypeD ::= ValueC [Type1] ;
 
 terminator Type "" ;
 IntegerType  . Type1 ::= "Integer" ;
 BooleanType  . Type1 ::= "Boolean" ;
 DoubleType   . Type1 ::= "Double" ;
-ADType       . Type ::= ValueConstructor [Type1] ;
+ADType       . Type ::= ValueC [Type1] ;
 coercions Type 1;
 separator Type1 "" ;
 
-terminator nonempty Ident "" ;
+terminator nonempty Parameter "" ;
+Param . Parameter ::= Ident ;
 
 EIf    . Exp1 ::= "if" Exp2 "then" Exp2 "else" Exp2 "fi" ;
-EMatch . Exp1 ::= "match" Exp2 "with" [MatchClause] "end" ;
+EMatch . Exp1 ::= "match" Exp2 "with" [MatchC] "end" ;
 
-separator nonempty MatchClause "|" ;
+separator nonempty MatchC "|" ;
 
-MatchClause . MatchClause ::= Pattern "->" Exp ;
+MatchClause . MatchC ::= Pattern "->" Exp ;
 
 VarPattern         . Pattern2 ::= Ident ;
 IntPattern         . Pattern2 ::= Integer ;
@@ -37,14 +36,14 @@ DoublePattern      . Pattern2 ::= Double ;
 NilPattern         . Pattern2 ::= "[]" ;
 WildCardPattern    . Pattern2 ::= "_" ;
 ConsPattern        . Pattern1 ::= Pattern1 ":" Pattern2 ;
-TypePattern        . Pattern ::= ValueConstructor [Pattern1] ;
+TypePattern        . Pattern ::= ValueC [Pattern1] ;
 coercions Pattern 2 ;
 
 terminator Pattern1 "" ;
 
 token UIdent (upper (letter | digit | '_')*) ;
 
-ValueConstructor . ValueConstructor ::= UIdent ;
+ValueConstructor . ValueC ::= UIdent ;
 
 EAnd . Exp2 ::= Exp3 "&&" Exp3 ;
 EOr  . Exp2 ::= Exp3 "||" Exp3 ;
@@ -69,12 +68,12 @@ EVar         . Exp7 ::= Ident ;
 EInt         . Exp7 ::= Integer ;
 EBool        . Exp7 ::= Boolean ;
 EDouble      . Exp7 ::= Double ;
-EList        . Exp7 ::= "[" [ListElem] "]" ;
-EConstructor . Exp7 ::= ValueConstructor [Exp7] ;
+EList        . Exp7 ::= "[" [ListE] "]" ;
+EConstructor . Exp7 ::= ValueC [Exp7] ;
 
-ListElem . ListElem ::= Exp ;
+ListElem . ListE ::= Exp ;
 
-separator ListElem "," ;
+separator ListE "," ;
 
 separator nonempty Exp7 "" ;
 

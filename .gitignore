@@ -20,3 +20,4 @@ cabal.sandbox.config
 src/MIML/
 src/Makefile
 src/Makefile.bak
+src/doc
