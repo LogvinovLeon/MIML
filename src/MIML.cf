@@ -6,11 +6,13 @@ terminator Def ";" ;
 
 DValue . Def ::= "let" Ident "=" Exp ;
 DFunc  . Def ::= "let" Ident [Ident] "=" [Def] Exp;
-DType  . Def ::= "type" ValueConstructor [Type1] "=" [TypeDec] ;
+DType  . Def ::= "type" ValueConstructor [TypeParameter] "=" [TypeDec] ;
 
-separator Type1 "" ;
 separator TypeDec "|" ;
 TypeDec . TypeDec ::= ValueConstructor [Type1] ;
+
+separator TypeParameter "" ;
+TypeParameter . TypeParameter ::= Ident ;
 
 terminator Type "" ;
 IntegerType  . Type1 ::= "Integer" ;
@@ -18,6 +20,7 @@ BooleanType  . Type1 ::= "Boolean" ;
 DoubleType   . Type1 ::= "Double" ;
 ADType       . Type ::= ValueConstructor [Type1] ;
 coercions Type 1;
+separator Type1 "" ;
 
 terminator nonempty Ident "" ;
 
@@ -62,11 +65,12 @@ EApp . Exp6 ::= Ident [Exp7] ;
 
 token Boolean ('t''r''u''e' | 'f''a''l''s''e') ;
 
-EVar    . Exp7 ::= Ident ;
-EInt    . Exp7 ::= Integer ;
-EBool   . Exp7 ::= Boolean ;
-EDouble . Exp7 ::= Double ;
-EList   . Exp7 ::= "[" [ListElem] "]" ;
+EVar         . Exp7 ::= Ident ;
+EInt         . Exp7 ::= Integer ;
+EBool        . Exp7 ::= Boolean ;
+EDouble      . Exp7 ::= Double ;
+EList        . Exp7 ::= "[" [ListElem] "]" ;
+EConstructor . Exp7 ::= ValueConstructor [Exp7] ;
 
 ListElem . ListElem ::= Exp ;
 
