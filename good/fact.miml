@@ -1,8 +1,0 @@
-let fact n =
-    let fac n acc =
-        if n < 1 then 1
-        else fac (n - 1) (acc * n)
-        fi;
-    fac n 1;
-
-fact 5

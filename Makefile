@@ -1,10 +1,6 @@
 all:
-	cd src && bnfc -m --haskell-gadt -d --ghc MIML.cf
-	#sed --in-place '4d' src/Makefile
-	cd src && make
-	cd src && bnfc --latex -o doc MIML.cf
-	cd src/doc && pdflatex MIML.tex
-
+	bnfc --haskell-gadt -d --ghc MIML.cf
+	happy -gca MIML/Par.y
+	alex -g MIML/Lex.x
+	ghc --make MIML/Test.hs -o MIML/Test
 clean:
-	rm -rf src/MIML src/Makefile src/doc
-	cabal clean

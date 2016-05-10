@@ -1,0 +1,13 @@
+let x1 = 2 in
+	let x2 = 4 in
+		let y1 = -2 in
+			let y2 = 5 in
+				let dx = x2 - x1 in
+					let dy = y2 - y1 in
+						dx * dy
+					end
+				end
+			end
+		end
+	end
+end

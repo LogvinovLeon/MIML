@@ -1,9 +1,0 @@
-type Figure = Circle Double | Point Double Double;
-
-let area f =
-    match f with
-      Circle r -> 2 * pi * r
-    | Point _ _ -> 0
-    end;
-
-area (Circle 2)

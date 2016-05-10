@@ -1,0 +1,88 @@
+
+entrypoints Prog;
+
+Program . Prog ::= DefinitionBlock Exp ;
+
+DBlock . DefinitionBlock ::= "def" [Definition] "enddef" ;
+
+terminator Definition "" ;
+
+DValue . Definition ::= "let" Ident "=" Exp ;
+DFunc  . Definition ::= "let" Ident [FunctionParameter] "=" DefinitionBlock Exp;
+DType  . Definition ::= "type" TypeConstructor [TypeConstructorParameter] "=" [TypeDeclarationClause] ;
+terminator TypeConstructorParameter "" ;
+terminator nonempty FunctionParameter "" ;
+FunctionParam . FunctionParameter ::= Ident ;
+TypeCons . TypeConstructor ::= UIdent ;
+
+TypeConstructorParam . TypeConstructorParameter ::= UIdent ;
+
+separator nonempty TypeDeclarationClause "|" ;
+TypeDeclarationC . TypeDeclarationClause ::= ValueConstructor [ValueConstructorParameter] ;
+terminator ValueConstructorParameter "" ;
+
+ValueConstructorPolymorphicParameter . ValueConstructorParameter ::= TypeConstructorParameter ;
+ValueConstructorNormalParameter      . ValueConstructorParameter ::= Type1 ;
+
+IntegerType  . Type1 ::= "Integer" ;
+BooleanType  . Type1 ::= "Boolean" ;
+ADType       . Type ::= ValueConstructor [Type1] ;
+coercions Type 1;
+separator Type1 "" ;
+
+EIf    . Exp1 ::= "if" Exp2 "then" Exp2 "else" Exp2 "fi" ;
+EMatch . Exp1 ::= "match" Exp2 "with" [PatternMatchClause] "endmatch" ;
+
+separator nonempty PatternMatchClause "|" ;
+
+MatchClause . PatternMatchClause ::= Pattern "->" Exp ;
+
+VarPattern         . Pattern2 ::= Ident ;
+IntPattern         . Pattern2 ::= Integer ;
+DoublePattern      . Pattern2 ::= Double ;
+NilPattern         . Pattern2 ::= "[]" ;
+WildCardPattern    . Pattern2 ::= "_" ;
+ConsPattern        . Pattern1 ::= Pattern2 ":" Pattern ;
+TypePattern        . Pattern1 ::= ValueConstructor [Pattern2] ;
+coercions Pattern 2 ;
+
+terminator Pattern2 "" ;
+
+token UIdent (upper (letter | digit | '_')*) ;
+
+ValueC . ValueConstructor ::= UIdent ;
+
+EAnd . Exp2 ::= Exp3 "&&" Exp3 ;
+EOr  . Exp2 ::= Exp3 "||" Exp3 ;
+EXor . Exp2 ::= Exp3 "^" Exp3 ;
+
+EEq . Exp3 ::= Exp4 "==" Exp4 ;
+ENe . Exp3 ::= Exp4 "!=" Exp4 ;
+ELe . Exp3 ::= Exp4 "<" Exp4 ;
+EGe . Exp3 ::= Exp4 ">" Exp4 ;
+
+EPlus  . Exp4 ::= Exp4 "+" Exp5 ;
+EMinus . Exp4 ::= Exp4 "-" Exp5 ;
+
+ETimes . Exp5 ::= Exp5 "*" Exp6 ;
+EDiv   . Exp5 ::= Exp5 "/" Exp6 ;
+
+EApp . Exp6 ::= Ident [AppParam] ;
+
+token Boolean ('t''r''u''e' | 'f''a''l''s''e') ;
+
+EVar         . Exp7 ::= Ident ;
+EInt         . Exp7 ::= Integer ;
+EBool        . Exp7 ::= Boolean ;
+EDouble      . Exp7 ::= Double ;
+EList        . Exp7 ::= "[" [Exp7] "]" ;
+EConstructor . Exp7 ::= ValueConstructor [Exp7] ;
+
+separator nonempty Exp7 "" ;
+separator nonempty AppParam "" ;
+PaalicationParameter . AppParam ::= Exp7 ;
+coercions Exp 7;
+
+comment "//" ;
+comment "#" ;
+comment "/*" "*/" ;

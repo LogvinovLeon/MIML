@@ -1,0 +1,28 @@
+entrypoints Exp;
+EIf    . Exp1 ::= "if" Exp2 "then" Exp2 "else" Exp2 "fi" ;
+
+EEq    . Exp3 ::= Exp4 "==" Exp4 ;
+ENe    . Exp3 ::= Exp4 "!=" Exp4 ;
+ELe    . Exp3 ::= Exp4 "<" Exp4 ;
+EGe    . Exp3 ::= Exp4 ">" Exp4 ;
+
+EPlus  . Exp4 ::= Exp4 "+" Exp5 ;
+EMinus . Exp4 ::= Exp4 "-" Exp5 ;
+ETimes . Exp5 ::= Exp5 "*" Exp6 ;
+EDiv   . Exp5 ::= Exp5 "/" Exp6 ;
+
+ENeg   . Exp6 ::= "-" Exp7 ;
+EApp   . Exp6 ::= Ident [Exp7] ;
+
+EVar   . Exp7 ::= Ident ;
+EInt   . Exp7 ::= Integer ;
+ELet   . Exp7 ::= "let" Ident "=" Exp "in" Exp "end" ;
+
+
+separator nonempty Exp7 "" ;
+
+coercions Exp 7;
+
+comment "//" ;
+comment "#" ;
+comment "/*" "*/" ;
