@@ -1,7 +1,11 @@
 all:
-	bnfc --haskell-gadt -d --ghc MIML.cf
+	bnfc --haskell -d --ghc MIML.cf
 	happy -gca MIML/Par.y
 	alex -g MIML/Lex.x
 	ghc --make MIML/Test.hs -o MIML/Test
-	ghc --make Interpreter.hs -o interpreter
+	ghc --make Main.hs -o interpreter
+
 clean:
+	rm -rf MIML
+	rm interpreter Main.o Main.hi
+

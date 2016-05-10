@@ -1,1 +1,1 @@
-let x = 2 in x * x end
+let x = 2 in 1 + x * x / x end

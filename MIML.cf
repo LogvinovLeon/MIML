@@ -12,16 +12,15 @@ ETimes . Exp5 ::= Exp5 "*" Exp6 ;
 EDiv   . Exp5 ::= Exp5 "/" Exp6 ;
 
 ENeg   . Exp6 ::= "-" Exp6 ;
-EApp   . Exp6 ::= Ident [Exp7] ;
+EApp   . Exp7 ::= Exp7 Exp8;
 
-EVar   . Exp7 ::= Ident ;
-EInt   . Exp7 ::= Integer ;
-ELet   . Exp7 ::= "let" Ident "=" Exp "in" Exp "end" ;
+EVar   . Exp8 ::= Ident ;
+EInt   . Exp8 ::= Integer ;
+ELet   . Exp8 ::= "let" Ident "=" Exp "in" Exp "end" ;
+EFun   . Exp8 ::= "let" Ident Ident "=" Exp "in" Exp "end" ;
 
 
-separator nonempty Exp7 "" ;
-
-coercions Exp 7;
+coercions Exp 8;
 
 comment "//" ;
 comment "#" ;

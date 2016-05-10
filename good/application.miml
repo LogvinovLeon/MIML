@@ -1,0 +1,7 @@
+let sum a =
+    let su b =
+        let s c =
+        a+b+c
+        in s end
+    in su end
+in sum (1+2) 3 4 end
