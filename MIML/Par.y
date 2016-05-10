@@ -59,7 +59,7 @@ Exp5 : Exp5 '*' Exp6 { MIML.Abs.ETimes $1 $3 }
      | Exp5 '/' Exp6 { MIML.Abs.EDiv $1 $3 }
      | Exp6 { $1 }
 Exp6 :: { Exp }
-Exp6 : '-' Exp7 { MIML.Abs.ENeg $2 }
+Exp6 : '-' Exp6 { MIML.Abs.ENeg $2 }
      | Ident ListExp7 { MIML.Abs.EApp $1 $2 }
      | Exp7 { $1 }
 Exp7 :: { Exp }

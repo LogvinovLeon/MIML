@@ -3,4 +3,5 @@ all:
 	happy -gca MIML/Par.y
 	alex -g MIML/Lex.x
 	ghc --make MIML/Test.hs -o MIML/Test
+	ghc --make Interpreter.hs -o interpreter
 clean:

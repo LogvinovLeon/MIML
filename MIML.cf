@@ -11,7 +11,7 @@ EMinus . Exp4 ::= Exp4 "-" Exp5 ;
 ETimes . Exp5 ::= Exp5 "*" Exp6 ;
 EDiv   . Exp5 ::= Exp5 "/" Exp6 ;
 
-ENeg   . Exp6 ::= "-" Exp7 ;
+ENeg   . Exp6 ::= "-" Exp6 ;
 EApp   . Exp6 ::= Ident [Exp7] ;
 
 EVar   . Exp7 ::= Ident ;

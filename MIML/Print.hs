@@ -95,7 +95,7 @@ instance Print Exp where
     EMinus exp1 exp2 -> prPrec i 4 (concatD [prt 4 exp1, doc (showString "-"), prt 5 exp2])
     ETimes exp1 exp2 -> prPrec i 5 (concatD [prt 5 exp1, doc (showString "*"), prt 6 exp2])
     EDiv exp1 exp2 -> prPrec i 5 (concatD [prt 5 exp1, doc (showString "/"), prt 6 exp2])
-    ENeg exp -> prPrec i 6 (concatD [doc (showString "-"), prt 7 exp])
+    ENeg exp -> prPrec i 6 (concatD [doc (showString "-"), prt 6 exp])
     EApp id exps -> prPrec i 6 (concatD [prt 0 id, prt 7 exps])
     EVar id -> prPrec i 7 (concatD [prt 0 id])
     EInt n -> prPrec i 7 (concatD [prt 0 n])
