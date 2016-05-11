@@ -61,8 +61,13 @@ eval (EApp f e) = do
                     Val x -> error $ "You can only apply functions, not plane value: " ++ show x 
     let new_env = Map.insert param_name param fun_env
     return $ runReader (eval body) new_env
-eval (EFun name param_name body e) = do
+-- Ident -> Exp -> Env     ->      Value
+eval (EFun name param_names body e) = do
     env <- ask
-    let f = Fun param_name body nEnv
+    let newBody = foldr ELam body param_names
+    let f = runReader (eval newBody) nEnv
         nEnv = Map.insert name f env
     local (const nEnv) (eval e)
+eval (ELam param_name body) = do
+    env <- ask
+    return $ Fun param_name body env

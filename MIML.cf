@@ -17,8 +17,10 @@ EApp   . Exp7 ::= Exp7 Exp8;
 EVar   . Exp8 ::= Ident ;
 EInt   . Exp8 ::= Integer ;
 ELet   . Exp8 ::= "let" Ident "=" Exp "in" Exp "end" ;
-EFun   . Exp8 ::= "let" Ident Ident "=" Exp "in" Exp "end" ;
+EFun   . Exp8 ::= "let" Ident [Ident] "=" Exp "in" Exp "end" ;
+ELam   . Exp8 ::= "lambda" Ident "=" Exp "end";
 
+separator nonempty Ident "" ;
 
 coercions Exp 8;
 

@@ -1,0 +1,6 @@
+let fact acc n =
+    if n == 1 then acc
+    else fact (acc*n) (n-1) fi
+in 
+    let f = fact 1 in f 5 end
+end

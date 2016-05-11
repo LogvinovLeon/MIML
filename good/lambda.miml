@@ -1,0 +1,8 @@
+let fact acc =
+    lambda n =
+        if n == 1 then acc
+        else fact (acc*n) (n-1) fi
+    end
+in 
+    let f = fact 1 in f 5 end
+end
