@@ -8,7 +8,7 @@ Simple `make` will be enough.
 You can also run `test.sh` which runs all tests.
 
 Currently it supports:
-* Integers, Booleans, Lists and functions as types
+* Integers, Booleans, Lists and functions as types and first class citizens. (e.c. Program result can be a function)
 [bool_result](good/bool_result.miml) [function_result](good/function_result.miml)
 * Let _ in [let](good/let.miml) [let_area](good/let_area.miml)
 * Functions with recursion and application [application](good/application.miml) [fact](good/fact.miml)
@@ -22,6 +22,7 @@ Currently it supports:
 * Functions in functions [lambda](good/lambda.miml) [partially_apply](good/partially_apply.miml)
 * Lists of functions [list](good/list.miml)
 * Lambdas (only single parameter) [lambda](good/lambda.miml)
+* Static binding of identifiers [static_bind](static_bind.miml)
 
 It will support in the next version:
 * Builtin functions
