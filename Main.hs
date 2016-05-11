@@ -3,7 +3,6 @@ module Main where
 
 
 import           System.Environment (getArgs)
-import           System.Exit        (die)
 import           System.IO()
 
 import           MIML.Abs
