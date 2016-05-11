@@ -1,0 +1,9 @@
+let plus_5 = 
+    let x = 5 in
+        lambda y = y + x end
+    end
+in
+    plus_5 6
+end
+
+
