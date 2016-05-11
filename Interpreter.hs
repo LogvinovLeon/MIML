@@ -15,16 +15,30 @@ data Value where
 
 type Env = Map.Map Ident Value
 
+getInt :: Exp -> Reader Env Integer
+getInt e = do
+    x <- eval e
+    return $ case x of
+        Int c -> c
+        s -> error $ "Type error. Integer required: " ++ show s
+
+getList :: Exp -> Reader Env [Value]
+getList e = do
+    x <- eval e
+    return $ case x of
+        List c -> c
+        s -> error $ "Type error. List required: " ++ show s
+
 evalOp :: Exp -> Exp -> (Integer -> Integer -> Integer) -> Reader Env Value
 evalOp e1 e2 f = do
-    Int lhs <- eval e1
-    Int rhs <- eval e2
+    lhs <- getInt e1
+    rhs <- getInt e2
     return (Int (lhs `f` rhs))
 
 evalBOp :: Exp -> Exp -> (Integer -> Integer -> Bool) -> Reader Env Value
 evalBOp e1 e2 f = do
-    Int lhs <- eval e1
-    Int rhs <- eval e2
+    lhs <- getInt e1
+    rhs <- getInt e2
     return $ Bool $ lhs `f` rhs
 
 eval :: Exp -> Reader Env Value
@@ -58,7 +72,7 @@ eval (ENeg e) = do
         f -> error $ "You can only negate integers or booleans, not functions: " ++ show f
 eval ENil = return $ List []
 eval (ECons h t) = do
-    List lt <- eval t
+    lt <- getList t
     x <- eval h
     return $ List $ x:lt
 eval (EList es) = do
