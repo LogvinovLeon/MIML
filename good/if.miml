@@ -1,1 +1,1 @@
-if 1 then 2 else 0 fi
+if true then 2 else 0 fi

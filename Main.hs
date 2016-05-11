@@ -6,7 +6,7 @@ import           System.Environment (getArgs)
 import           System.Exit        (die)
 import           System.IO()
 
-import           MIML.Abs()
+import           MIML.Abs
 import           MIML.ErrM
 import           MIML.Lex
 import           MIML.Par
@@ -25,7 +25,9 @@ runFile f = putStrLn f >> readFile f >>= run
 run :: String -> IO ()
 run s = let ts = myLexer s in case pExp ts of
            Bad err    -> error err
-           Ok  tree -> print $ runReader (eval tree) Map.empty
+           Ok  tree -> print $ runReader (eval tree) iEnv
+                            where iEnv = Map.fromList [(Ident "true", Bool True), 
+                                                       (Ident "false", Bool False)]
 
 main :: IO ()
 main = do
