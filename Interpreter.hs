@@ -10,6 +10,7 @@ import Data.Maybe
 data Value where 
     Int :: Integer -> Value
     Bool :: Bool -> Value
+    List :: [Value] -> Value
     Fun :: Ident -> Exp -> Env -> Value deriving (Show)
 
 type Env = Map.Map Ident Value
@@ -55,6 +56,14 @@ eval (ENeg e) = do
         Int v -> return $ Int $ negate v
         Bool v -> return $ Bool $ not v
         f -> error $ "You can only negate integers or booleans, not functions: " ++ show f
+eval ENil = return $ List []
+eval (ECons h t) = do
+    List lt <- eval t
+    x <- eval h
+    return $ List $ x:lt
+eval (EList es) = do
+    env <- ask
+    return $ List $ fmap (\e -> runReader (eval e) env) es
 eval (EApp f e) = do
     env <- ask
     param <- eval e
@@ -62,8 +71,7 @@ eval (EApp f e) = do
                 EVar x -> fromMaybe (error $ "Undefined function: " ++ show x) (Map.lookup x env)
                 ff -> case runReader (eval ff) env of
                     fun@Fun{} -> fun
-                    Int x -> error $ "You can only apply functions, not integers: " ++ show x
-                    Bool b -> error $ "You can only apply functions, not booleans: " ++ show b
+                    x -> error $ "You can only apply functions: " ++ show x
     let new_env = Map.insert param_name param fun_env
     return $ runReader (eval body) new_env
 eval (EFun name param_names body e) = do

@@ -7,7 +7,6 @@ do
 	./interpreter $good
 	if [[ $? -ne 0 ]]; then
 		echo "Failed to interpret correct program"
-		./interpreter $good
     	exit 1
 	fi
 done
@@ -20,7 +19,6 @@ do
 	./interpreter $bad
 	if [[ $? -ne 1 ]]; then
 		echo "Parsed incorrect program"
-		./interpreter $bad
     	exit 1
 	fi
 done

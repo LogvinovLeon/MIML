@@ -1,15 +1,21 @@
 entrypoints Exp;
 EIf    . Exp1 ::= "if" Exp2 "then" Exp2 "else" Exp2 "fi" ;
 
-EEq    . Exp3 ::= Exp4 "==" Exp4 ;
-ENe    . Exp3 ::= Exp4 "!=" Exp4 ;
-ELe    . Exp3 ::= Exp4 "<" Exp4 ;
-EGe    . Exp3 ::= Exp4 ">" Exp4 ;
+EEq    . Exp2 ::= Exp3 "==" Exp3 ;
+ENe    . Exp2 ::= Exp3 "!=" Exp3 ;
+ELe    . Exp2 ::= Exp3 "<" Exp3 ;
+EGe    . Exp2 ::= Exp3 ">" Exp3 ;
 
-EPlus  . Exp4 ::= Exp4 "+" Exp5 ;
-EMinus . Exp4 ::= Exp4 "-" Exp5 ;
-ETimes . Exp5 ::= Exp5 "*" Exp6 ;
-EDiv   . Exp5 ::= Exp5 "/" Exp6 ;
+EPlus  . Exp3 ::= Exp3 "+" Exp4 ;
+EMinus . Exp3 ::= Exp3 "-" Exp4 ;
+ETimes . Exp4 ::= Exp4 "*" Exp5 ;
+EDiv   . Exp4 ::= Exp4 "/" Exp5 ;
+
+ECons  . Exp5 ::= Exp6 ":" Exp5 ;
+ENil   . Exp5 ::= "[]" ;
+EList  . Exp5 ::= "[" [Exp] "]" ;
+
+separator Exp "," ;
 
 ENeg   . Exp6 ::= "-" Exp6 ;
 EApp   . Exp7 ::= Exp7 Exp8;

@@ -38,8 +38,3 @@ main = do
   else do
     input <- readFile (head args)
     run input
-
-
-
-
-
